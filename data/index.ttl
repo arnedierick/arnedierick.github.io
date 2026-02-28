@@ -2,12 +2,12 @@
 @prefix dt: <https://arnedierick.github.io/data#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-dt:arnedieirck a vc:Person, vc:Student;
-                vc:Name "Arne Dierick" ;
-                vc:Studentid "02003694" ;
-                vc:Passion dt:football, dt:chess ;
-                vc:Birthyear "2002" ;
-                vc:Friend dt:siebevlietinck, dt:michaelboelaert .
+<https://arnedierick.github.io/#me> a vc:Person, vc:Student;
+                vc:name "Arne Dierick" ;
+                vc:studentId "02003694" ;
+                vc:hasPassion dt:football, dt:chess ;
+                vc:birthYear "2002" ;
+                vc:hasFriend dt:siebevlietinck, dt:michaelboelaert .
 
 dt:football a vc:Hobby ;
     rdfs:label "Football"@en ;

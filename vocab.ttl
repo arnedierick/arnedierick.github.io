@@ -1,4 +1,4 @@
-@prefix vc: <https://yourname.github.io/vocab#> .
+@prefix vc: <https://arnedierick.github.io/vocab#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -46,4 +46,5 @@ vc:hasFriend a rdf:Property ;
              rdfs:label "has friend"@en ;
              rdfs:comment "Relates a person to another person they are friends with."@en ;
              rdfs:domain vc:Person ;
+
              rdfs:range vc:Person .

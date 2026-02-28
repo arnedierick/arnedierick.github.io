@@ -1,9 +1,18 @@
-@prefix ex: <https://example.org/>.
-@prefix xsd: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix vc: <https://arnedierick.github.io/vocab#> .
+@prefix dt: <https://arnedierick.github.io/data#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-ex:arnedieirck a ex:Person, ex:Student;
-                ex:Name "Arne Dierick"^^xsd:string ;
-                ex:Studentid "02003694"^^xsd:string ;
-                ex:Passion ex:football, ex:chess ;
-                ex:Birthyear "2002"^^xsd:gYear ;
-                ex:Friend ex:siebevlietinck, ex:michaelboelaert .
+dt:arnedieirck a vc:Person, vc:Student;
+                vc:Name "Arne Dierick" ;
+                vc:Studentid "02003694" ;
+                vc:Passion dt:football, dt:chess ;
+                vc:Birthyear "2002" ;
+                vc:Friend dt:siebevlietinck, dt:michaelboelaert .
+
+dt:football a vc:Hobby ;
+    rdfs:label "Football"@en ;
+    rdfs:comment "A game where you kick a ball into a goal"@en .
+
+dt:chess a vc:Hobby ;
+    rdfs:label "Chess"@en ;
+    rdfs:comment "A strategic game where you move different pieces on a board to checkmate your opponent"@en .

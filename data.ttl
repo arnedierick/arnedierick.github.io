@@ -1,0 +1,9 @@
+@prefix ex: <https://example.org/>.
+@prefix xsd: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+ex:arnedieirck a ex:Person, ex:Student;
+                ex:Name "Arne Dierick"^^xsd:string ;
+                ex:Studentid "02003694"^^xsd:string ;
+                ex:Passion ex:football, ex:chess ;
+                ex:Birthyear "2002"^^xsd:gYear ;
+                ex:Friend ex:siebevlietinck, ex:michaelboelaert .

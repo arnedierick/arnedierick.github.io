@@ -7,7 +7,7 @@ dt:me a vc:Person, vc:Student;
     vc:studentId "02003694" ;
     vc:hasPassion dt:football, dt:chess ;
     vc:birthYear "2002" ;
-    vc:hasFriend dt:siebevlietinck, dt:michaelboelaert .
+    vc:hasFriend dt:siebevlietinck, <https://miboelae.github.io/data.ttl#me> .
 
 dt:football a vc:Hobby ;
     rdfs:label "Football"@en ;

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5K Pacing — Maart 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161920;
+    --border: #252830;
+    --text: #e8eaf0;
+    --muted: #555a6a;
+    --accent: #f0c040;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 32px;
+  }
+
+  header {
+    margin-bottom: 36px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chart-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+  }
+
+  canvas {
+    display: block;
+    width: 100% !important;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .legend-item:hover { background: #ffffff0d; }
+  .legend-item.hidden { opacity: 0.3; }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-name {
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .tooltip-custom {
+    position: fixed;
+    background: #1e2028ee;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    pointer-events: none;
+    display: none;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    min-width: 180px;
+  }
+
+  .tooltip-lap {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .tooltip-color {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>5K Test GU15 2026</h1>
+  <p class="subtitle">Maart 2026 — Tijd per kilometer</p>
+</header>
+
+<div class="chart-wrap">
+  <canvas id="chart" height="420"></canvas>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div class="tooltip-custom" id="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const players = [
+  { name: "Leon Boone",               laps: [305, 270, 275, 276, 288] },
+  { name: "Alexander Genbrugge",      laps: [305, 270, 303, 292, 285] },
+  { name: "Emile Hofman",             laps: [305, 271, 274, 261, 257] },
+  { name: "Jef Lambers",              laps: [305, 280, 403, 525] },
+  { name: "Aarón Ruiz Van Steenberge",laps: [305, 295, 306, 340, 298] },
+  { name: "Marwan Tahri",             laps: [305, 405, 374, 271, 289] },
+  { name: "Evan Tinyih",              laps: [305, 390, 325, 391, 393] },
+  { name: "Sam Van De Gehuchte",      laps: [305, 405, 374, 356, 374] },
+  { name: "Karel Van Iseghem",        laps: [305, 280, 403, 525] },
+  { name: "Milan Van Weehaege",       laps: [305, 341, 374, 391, 393] },
+  { name: "Maxime Vermeiren",         laps: [305, 295, 306, 340, 298] },
+  { name: "Mathis Vindevogel",        laps: [305, 310, 305, 300, 285] },
+];
+
+const COLORS = [
+  "#f0c040","#4fc3f7","#81c784","#e57373","#ba68c8",
+  "#ffb74d","#4dd0e1","#aed581","#f48fb1","#90caf9",
+  "#ff8a65","#a5d6a7"
+];
+
+function secToMmss(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${String(sec).padStart(2,'0')}`;
+}
+
+const labels = ["Ronde 1", "Ronde 2", "Ronde 3", "Ronde 4", "Ronde 5"];
+
+const datasets = players.map((p, i) => ({
+  label: p.name,
+  data: p.laps,
+  borderColor: COLORS[i],
+  backgroundColor: COLORS[i] + '22',
+  borderWidth: 2.2,
+  pointRadius: 5,
+  pointHoverRadius: 8,
+  pointBackgroundColor: COLORS[i],
+  pointBorderColor: '#0d0f14',
+  pointBorderWidth: 2,
+  tension: 0.35,
+  fill: false,
+}));
+
+Chart.defaults.color = '#555a6a';
+Chart.defaults.font.family = "'DM Mono', monospace";
+
+const ctx = document.getElementById('chart').getContext('2d');
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: { labels, datasets },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        enabled: false,
+        external({ chart, tooltip }) {
+          const el = document.getElementById('tooltip');
+          if (tooltip.opacity === 0) { el.style.display = 'none'; return; }
+
+          const dataIndex = tooltip.dataPoints?.[0]?.dataIndex ?? 0;
+          const lap = labels[dataIndex];
+
+          const visible = datasets
+            .map((ds, i) => ({ name: ds.label, color: COLORS[i], val: ds.data[dataIndex], hidden: !!chart.getDatasetMeta(i).hidden }))
+            .filter(d => !d.hidden)
+            .sort((a, b) => a.val - b.val);
+
+          el.innerHTML = `<div class="tooltip-lap">${lap}</div>` +
+            visible.map(d =>
+              `<div class="tooltip-row"><span class="tooltip-color" style="background:${d.color}"></span>${d.name.split(' ')[0]}: <strong>${secToMmss(d.val)}</strong></div>`
+            ).join('');
+
+          el.style.display = 'block';
+          el.style.left = (tooltip.caretX + 20) + 'px';
+          el.style.top = (tooltip.caretY - 20) + 'px';
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#252830' },
+        ticks: { color: '#888ea0', font: { size: 12, family: "'DM Mono', monospace" } },
+        border: { color: '#252830' },
+      },
+      y: {
+        reverse: false,
+        grid: { color: '#252830' },
+        border: { color: '#252830' },
+        ticks: {
+          color: '#888ea0',
+          font: { size: 11, family: "'DM Mono', monospace" },
+          callback: v => secToMmss(v),
+          stepSize: 30,
+        },
+        title: {
+          display: true,
+          text: 'Lap Time (mm:ss)',
+          color: '#555a6a',
+          font: { size: 11 }
+        }
+      }
+    }
+  }
+});
+
+// Custom legend
+const legendEl = document.getElementById('legend');
+players.forEach((p, i) => {
+  const item = document.createElement('div');
+  item.className = 'legend-item';
+  item.innerHTML = `<span class="legend-dot" style="background:${COLORS[i]}"></span><span class="legend-name">${p.name.split(' ')[0]}</span>`;
+  item.addEventListener('click', () => {
+    const meta = chart.getDatasetMeta(i);
+    meta.hidden = !meta.hidden;
+    item.classList.toggle('hidden', meta.hidden);
+    chart.update();
+  });
+  legendEl.appendChild(item);
+});
+</script>
+</body>
+</html>

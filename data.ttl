@@ -3,13 +3,34 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-dt:me a vc:Person, vc:Student;
+dt:me a vc:Person, vc:Student ;
     vc:name "Arne Dierick" ;
     vc:studentId "02003694" ;
     vc:hasPassion dt:football, dt:chess ;
     vc:birthYear "2002"^^xsd:gYear  ;
     vc:hasFriend <https://vucis.github.io/data.ttl#me> ,
                  <https://miboelae.github.io/data.ttl#me> .
+
+dt:aldrin a vc:Person ;
+          vc:name "Buzz Aldrin" .
+
+dt:armstrong a vc:Person ;
+             vc:name "Neil Armstrong" .
+
+dt:leifer a vc:Person ;
+          vc:name "Neil Leifer" .
+
+dt:ali a vc:Person ;
+       vc:name "Muhammad Ali" .
+
+dt:liston a vc:Person ;
+          vc:name "Sonny Liston" .
+
+dt:sasse a vc:Person ;
+         vc:name "Arthur Sasse" .
+
+dt:einstein a vc:Person ;
+            vc:name "Albert Einstein" .
 
 dt:football a vc:Hobby ;
     rdfs:label "Football"@en ;
@@ -44,21 +65,21 @@ dt:princeton a vc:Location ;
 
 <https://www.nasa.gov/wp-content/uploads/2019/07/edu_srch_celebrate_the_50th_anniversary_apollo11.jpg?w=1024> a vc:Image ;
     vc:title "Apollo 11 astronaut with flag" ;
-    vc:creator "Neil Armstrong" ;
-    vc:features "Buzz Aldrin" ;
+    vc:creator dt:armstrong ;
+    vc:features dt:aldrin ;
     vc:locatedAt dt:moon ;
     vc:description "A photo of Astronaut Buzz Aldrin taken on the moon by Neil Armstrong during the Apollo 11 moon landing" .
 
 <https://i.guim.co.uk/img/media/7fa6a03e6a72421c0b2f40352ce1a423e6297974/0_0_3565_3019/master/3565.jpg?width=1900&dpr=1&s=none&crop=none> a vc:Image ;
     vc:title "Ali KOs Liston" ;
-    vc:creator "Neil Leifer" ;
-    vc:features "Muhammad Ali", "Sonny Liston" ;
+    vc:creator dt:leifer ;
+    vc:features dt:ali, dt:liston ;
     vc:locatedAt dt:lewiston ;
     vc:description "Muhammad Ali stands over Sonny Liston while boasting in the ring" .
 
 <https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Albert_Einstein_sticks_his_tongue.jpg/500px-Albert_Einstein_sticks_his_tongue.jpg> a vc:Image ;
     vc:title "Albert Einstein sticking out tongue" ;
-    vc:creator "Arthur Sasse" ;
-    vc:features "Albert Einstein" ;
+    vc:creator dt:sasse ;
+    vc:features dt:einstein ;
     vc:locatedAt dt:princeton ;
     vc:description "Scientist Albert Einstein sticking out his tongue at his 72nd birthday party" .

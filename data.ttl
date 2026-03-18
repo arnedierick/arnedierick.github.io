@@ -60,26 +60,26 @@ dt:princeton a vc:Location ;
     vc:title "CV foto Arne Dierick Jobfair 2026" ;
     vc:creator "VTK Gent" ;
     vc:features dt:me ;
-    vc:locatedAt dt:gent ;
+    vc:shotAt dt:gent ;
     vc:description "A professional photo taken at the VTK Jobfair 2026 that features Arne Dierick"@en .
 
 <https://www.nasa.gov/wp-content/uploads/2019/07/edu_srch_celebrate_the_50th_anniversary_apollo11.jpg?w=1024> a vc:Image ;
     vc:title "Apollo 11 astronaut with flag" ;
     vc:creator dt:armstrong ;
     vc:features dt:aldrin ;
-    vc:locatedAt dt:moon ;
+    vc:shotAt dt:moon ;
     vc:description "A photo of Astronaut Buzz Aldrin taken on the moon by Neil Armstrong during the Apollo 11 moon landing" .
 
 <https://i.guim.co.uk/img/media/7fa6a03e6a72421c0b2f40352ce1a423e6297974/0_0_3565_3019/master/3565.jpg?width=1900&dpr=1&s=none&crop=none> a vc:Image ;
     vc:title "Ali KOs Liston" ;
     vc:creator dt:leifer ;
     vc:features dt:ali, dt:liston ;
-    vc:locatedAt dt:lewiston ;
+    vc:shotAt dt:lewiston ;
     vc:description "Muhammad Ali stands over Sonny Liston while boasting in the ring" .
 
 <https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Albert_Einstein_sticks_his_tongue.jpg/500px-Albert_Einstein_sticks_his_tongue.jpg> a vc:Image ;
     vc:title "Albert Einstein sticking out tongue" ;
     vc:creator dt:sasse ;
     vc:features dt:einstein ;
-    vc:locatedAt dt:princeton ;
+    vc:shotAt dt:princeton ;
     vc:description "Scientist Albert Einstein sticking out his tongue at his 72nd birthday party" .

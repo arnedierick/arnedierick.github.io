@@ -29,7 +29,7 @@ vc:Location a rdfs:Class ;
             rdfs:comment "The location of an object"@en .
 
 vc:name a rdf:Property ;
-        rdfs:subClassOf foaf:name ;
+        rdfs:subPropertyOf  foaf:name ;
         rdfs:label "name"@en ;
         rdfs:comment "The full name of a person."@en ;
         rdfs:domain vc:Person ;
@@ -73,11 +73,14 @@ vc:creator a rdf:Property ;
 vc:features a rdf:Property ;
             rdfs:subPropertyOf foaf:depicts ;
             rdfs:label "features"@en ;
-            rdfs:comment "shows that the object is featured in the subject"@en .
+            rdfs:comment "shows that the object is featured in the subject"@en ;
+            rdfs:domain vc:Image ;
+            rdfs:range vc:Person .
 
-vc:locatedAt a rdf:Property ;
-             rdfs:label "located at"@en ;
-             rdfs:comment "relates an object to its location" ;
+vc:shotAt a rdf:Property ;
+             rdfs:label "shot at"@en ;
+             rdfs:comment "relates a photo to the place it was shot" ;
+             rdfs:domain vc:Image ;
              rdfs:range vc:Location .
 
 vc:description a rdf:Property ;

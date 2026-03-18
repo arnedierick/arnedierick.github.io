@@ -2,9 +2,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 
 vc:Person a rdfs:Class ;
+          rdfs:subClassOf foaf:Person ;
           rdfs:label "Person"@en ;
           rdfs:comment "A human being."@en .
 
@@ -17,8 +19,17 @@ vc:Hobby a rdfs:Class ;
          rdfs:label "Hobby"@en ;
          rdfs:comment "An activity that a person enjoys doing in their free time."@en .
 
+vc:Image a rdfs:Class ;
+         rdfs:subClassOf foaf:Image ;
+         rdfs:label "Image"@en ;
+         rdfs:comment "A visual illustration of an object"@en .
+
+vc:Location a rdfs:Class ;
+            rdfs:label "Location"@en ;
+            rdfs:comment "The location of an object"@en .
 
 vc:name a rdf:Property ;
+        rdfs:subClassOf foaf:name ;
         rdfs:label "name"@en ;
         rdfs:comment "The full name of a person."@en ;
         rdfs:domain vc:Person ;
@@ -43,8 +54,33 @@ vc:hasPassion a rdf:Property ;
               rdfs:range vc:Hobby .
 
 vc:hasFriend a rdf:Property ;
+             rdfs:subPropertyOf foaf:knows ;
              rdfs:label "has friend"@en ;
              rdfs:comment "Relates a person to another person they are friends with."@en ;
              rdfs:domain vc:Person ;
-
              rdfs:range vc:Person .
+
+vc:title a rdf:Property ;
+         rdfs:label "title"@en ;
+         rdfs:comment "The title of the subject"@en ;
+         rdfs:range xsd:string .
+
+vc:creator a rdf:Property ;
+           rdfs:subPropertyOf foaf:maker ;
+           rdfs:label "Creator"@en ;
+           rdfs:comment "The creator of this object"@en .
+
+vc:features a rdf:Property ;
+            rdfs:subPropertyOf foaf:depicts ;
+            rdfs:label "features"@en ;
+            rdfs:comment "shows that the object is featured in the subject"@en .
+
+vc:locatedAt a rdf:Property ;
+             rdfs:label "located at"@en ;
+             rdfs:comment "relates an object to its location" ;
+             rdfs:range vc:Location .
+
+vc:description a rdf:Property ;
+               rdfs:label "description"@en ;
+               rdfs:comment "a short summary of the subject"@en ;
+               rdfs:range xsd:string .

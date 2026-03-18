@@ -3,7 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-dt:me a vc:Person, vc:Student ;
+dt:me a vc:Student ;
     vc:name "Arne Dierick" ;
     vc:studentId "02003694" ;
     vc:hasPassion dt:football, dt:chess ;
